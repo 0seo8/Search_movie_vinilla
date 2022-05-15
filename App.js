@@ -14,7 +14,6 @@ const App = $container => {
       </div>
     </div>`;
 
-  // 전역 상태 생성
   createState({ type: 'all', title: 'frozen' })
 
   new Header($container.querySelector('.header'))
@@ -29,7 +28,6 @@ const movie = document.querySelector('.movies-list')
 movie.addEventListener('click', (e) =>{
   if(e.target.className !== 'movie') return 
   const $ID = e.target.querySelector('.imdbID').innerText
-  console.log($ID)
   new DetailEl(movie, $ID)
   movie.classList.add('active')
 })

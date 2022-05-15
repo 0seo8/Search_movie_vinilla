@@ -21,7 +21,6 @@ const createState = initialState => {
 const subscribe = newListener => {
   if (!listeners.includes(newListener)) listeners = [...listeners, newListener];
 
-  // 구독 해지 함수
   return () => {
     listeners = listeners.filter(listener => listener !== newListener);
   };

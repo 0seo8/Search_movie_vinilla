@@ -6,7 +6,7 @@ class Header {
     this.$container = $container;
 
     this.render();
-    this.searchEvents();
+    this.searchEvent();
   }
 
   render() {
@@ -29,7 +29,7 @@ class Header {
     `
   }
 
-  searchEvents() {
+  searchEvent() {
     this.$container.onclick = ({ target }) => {
 
       if(!target.matches('.button--search')) return 
