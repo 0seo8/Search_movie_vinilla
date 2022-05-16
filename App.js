@@ -25,10 +25,6 @@ App(document.getElementById('root'));
 
 const movie = document.querySelector('.movies-list')
 
-movie.addEventListener('click', (e) =>{
-  if(e.target.className !== 'movie') return 
-  const $ID = e.target.querySelector('.imdbID').innerText
-  new DetailEl(movie, $ID)
-  movie.classList.add('active')
-})
+
+
 
