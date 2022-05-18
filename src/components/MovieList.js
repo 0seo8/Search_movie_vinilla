@@ -60,7 +60,9 @@ class MovieList {
 
     const { Search, totalResults } = await fetchMovieItem(state.type, state.title, this.page);
     this.totalMoviesCount = Math.ceil(parseInt(totalResults, 10) / 10);
-    if(Search === undefined) return alert('찾는 자료가 없습니다')
+    if(Search === undefined) {
+      return alert('찾는 자료가 없습니다')
+    }
     const $movieItem = this.createMovieElements(Search);
 
     if (isChangedtype || isChangedtitle) {
@@ -73,10 +75,11 @@ class MovieList {
 
   createMovieElements(Search) {
     const $template = document.createElement('template');
+    console.log('Searh1',Search )
     $template.innerHTML = Search
       .map(
         ({Poster, Title, Year, imdbID}) => 
-      `<div href="/" class="movie" dataset-id =${imdbID}>
+      `<div class="movie" dataset-id =${imdbID}>
         <img src="${Poster !== 'N/A' ? Poster.replace('SX300', `SX700`) : './nopic.jpg'}" alt="">
         <div class="info">
           <div class="year">${Year}</div>
