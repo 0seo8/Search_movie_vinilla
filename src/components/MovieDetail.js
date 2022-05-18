@@ -41,7 +41,6 @@ class MovieDetails {
       <div class="etc"><h3>Genre:</h3> ${Genre}</div>
     </div>
     `
-    console.log(' this.$movieDetail', this.$movieDetail)
     this.$movieDetail.appendChild($template)
     this.$movieDetail.classList.add('active')
 

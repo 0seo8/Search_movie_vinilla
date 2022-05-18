@@ -1,4 +1,4 @@
-import { state, subscribe } from '../state/index.js';
+import { state, subscribe, createState } from '../state/index.js';
 import {fetchMovieItem} from '../components/api.js'
 class MovieList {
   constructor($container) {
@@ -60,9 +60,6 @@ class MovieList {
 
     const { Search, totalResults } = await fetchMovieItem(state.type, state.title, this.page);
     this.totalMoviesCount = Math.ceil(parseInt(totalResults, 10) / 10);
-    if(Search === undefined) {
-      return alert('찾는 자료가 없습니다')
-    }
     const $movieItem = this.createMovieElements(Search);
 
     if (isChangedtype || isChangedtitle) {
@@ -70,12 +67,10 @@ class MovieList {
     } else  {
       this.$moviesList.appendChild($movieItem);
     }
-
   }
 
   createMovieElements(Search) {
     const $template = document.createElement('template');
-    console.log('Searh1',Search )
     $template.innerHTML = Search
       .map(
         ({Poster, Title, Year, imdbID}) => 
