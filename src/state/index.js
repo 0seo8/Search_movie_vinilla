@@ -32,8 +32,5 @@ const store = {
   subscribe,
 };
 
-console.log('store', store)
-console.log('state', state)
-
 export default store;
 export { state, createState, subscribe };

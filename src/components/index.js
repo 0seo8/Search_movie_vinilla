@@ -1,5 +1,6 @@
 import Header from './header.js';
 import Nav from './Nav.js';
 import MovieList from './MovieList.js';
+import MovieDetails from './MovieDetail.js'
 
-export { Header, Nav, MovieList };
+export { Header, Nav, MovieList, MovieDetails };

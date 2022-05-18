@@ -1,5 +1,4 @@
 import { state } from '../state/index.js'
-const imgSrc = './img/image__header-search.png'
 
 class Header {
   constructor($container) {
@@ -21,7 +20,6 @@ class Header {
             <input type="search" class="formInput__input" id="searchKeyword" required>
           </div>
           <button type="button">
-            <img src="${imgSrc}" class="button--search" >
           </button>
         </div>
       </fieldset>
@@ -31,7 +29,6 @@ class Header {
 
   searchEvent() {
     this.$input = this.$container.querySelector('.formInput__input');
-    console.log(this.$input)
     this.$container.onclick = ({ target }) => {
 
       if(!target.matches('.button--search')) return 

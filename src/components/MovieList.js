@@ -1,11 +1,16 @@
 import { state, subscribe } from '../state/index.js';
+import {fetchMovieItem} from '../components/api.js'
 class MovieList {
   constructor($container) {
     this.$moviesList = $container.querySelector('.movies-list');
     this.$scrollObserver = $container.querySelector('.scroll-observer');
     this.$title = $container.querySelector('.formInput__input')
-    this.$moviesDetail =  $container.querySelector('.movies-detail'); 
-
+    
+    /**
+     * 내부 상태
+     * 현재 페이지를 나타내며 intersectionObserver에 의해 증가된다.
+     * page가 변경되면 render 메서드를 호출해 리렌더링한다.
+     */
     this.page = 1;
     this.currenttype = null;
     this.title = null;
@@ -53,7 +58,7 @@ class MovieList {
       this.title = state.title;
     }
 
-    const { Search, totalResults } = await this.fetchMovieItem(state.type, state.title);
+    const { Search, totalResults } = await fetchMovieItem(state.type, state.title, this.page);
     this.totalMoviesCount = Math.ceil(parseInt(totalResults, 10) / 10);
     if(Search === undefined) return alert('찾는 자료가 없습니다')
     const $movieItem = this.createMovieElements(Search);
@@ -66,26 +71,13 @@ class MovieList {
 
   }
 
-  async fetchMovieItem(type, title) {
-    const apiKey = '7035c60c'
-    const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=${title === '' ? 'frozen' : title}&type=${type === 'all' ? '' : type}&page=${this.page}`;
-    console.log('url', url)
-    try {
-      const { data } = await axios.get(url);
-      console.log(data)
-      return data
-    } catch (error) {
-      alert(data.Error)
-    }
-  }
-
   createMovieElements(Search) {
     const $template = document.createElement('template');
     $template.innerHTML = Search
       .map(
-        ({Poster, Title, Year}) => 
-      `<div href="/" class="movie">
-        <img src="${Poster=== 'N/A' ? './img/nopic.jpg' : Poster}" alt="">
+        ({Poster, Title, Year, imdbID}) => 
+      `<div href="/" class="movie" dataset-id =${imdbID}>
+        <img src="${Poster !== 'N/A' ? Poster.replace('SX300', `SX700`) : './nopic.jpg'}" alt="">
         <div class="info">
           <div class="year">${Year}</div>
           <div class="title">${Title} </div>
@@ -95,7 +87,7 @@ class MovieList {
       .join('');
     return $template.content;
   }
-
+  
 }
 
 export default MovieList;
